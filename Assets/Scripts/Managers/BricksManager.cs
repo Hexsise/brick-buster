@@ -12,6 +12,7 @@ public class BricksManager : MonoBehaviour
     public static BricksManager Instance => _instance;
 
     public static event Action OnLevelLoaded;
+    public static event Action OnLevelsCompleted;
 
     private void Awake()
     {
@@ -69,6 +70,11 @@ public class BricksManager : MonoBehaviour
         else
         {
             this.LoadLevel(this.CurrentLevel);
+            // trigger background music change event every 2 levels
+            if (this.CurrentLevel % 2 == 0)
+            {
+                OnLevelsCompleted?.Invoke();
+            }
         }
     }
 

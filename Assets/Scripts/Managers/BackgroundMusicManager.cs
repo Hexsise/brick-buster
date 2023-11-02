@@ -8,42 +8,32 @@ public class BackgroundMusicManager : MonoBehaviour
 {
     public AudioClip[] backgroundMusic;
     private AudioSource audioSource;
-    private int currentLevel = 0;
+    private int currentMusic = 0;
     private int lastMusicChangeLevel = 0;
+
+    void Awake()
+    {
+        BricksManager.OnLevelsCompleted += ChangeBackgroundMusic;
+    }
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
         audioSource.loop = true;
-        PlayBackgroundMusic(currentLevel);
+        PlayBackgroundMusic(currentMusic);
     }
 
-    void OnEnable()
+    private void ChangeBackgroundMusic()
     {
-        SceneManager.sceneLoaded += OnLevelLoaded;
+        currentMusic++;
+        PlayBackgroundMusic(currentMusic); // play music at currentMusic index
     }
 
-    void OnDisable()
+    private void PlayBackgroundMusic(int currentMusic)
     {
-        SceneManager.sceneLoaded -= OnLevelLoaded;
-    }
-
-    void OnLevelLoaded(Scene sscene, LoadSceneMode mode)
-    {
-        currentLevel++;
-        if (currentLevel - lastMusicChangeLevel > 2)
+        if (currentMusic < backgroundMusic.Length)
         {
-            // Change the background music every 2 levels
-            PlayBackgroundMusic(currentLevel);
-            lastMusicChangeLevel = currentLevel;
-        }
-    }
-
-    private void PlayBackgroundMusic(int currentLevel)
-    {
-        if (currentLevel < backgroundMusic.Length)
-        {
-            audioSource.clip = backgroundMusic[currentLevel];
+            audioSource.clip = backgroundMusic[currentMusic];
             audioSource.Play();
         }
     }
