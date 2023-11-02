@@ -104,7 +104,7 @@ public class Paddle : MonoBehaviour
         float mousePositionWorldX = mainCamera.ScreenToWorldPoint(new Vector3(mousePositionPixels, 0, 0)).x;
         this.transform.position = new Vector3(mousePositionWorldX, paddleInitialY, 0);
     }
-    private void OnCollisionEnter2D(Collision2D coll)
+    private void OnCollisionEnter2D(Collision2D coll) // can add audiosource play here for ball collision sound
     {
         if (coll.gameObject.tag == "Ball")
         {
