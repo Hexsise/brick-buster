@@ -965,7 +965,7 @@ GameObject:
   - component: {fileID: 800384538}
   m_Layer: 0
   m_Name: LeftWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1941,7 +1941,7 @@ GameObject:
   - component: {fileID: 1369271480}
   m_Layer: 0
   m_Name: RightWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2227,7 +2227,7 @@ GameObject:
   - component: {fileID: 1484552601}
   m_Layer: 0
   m_Name: TopWall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2486,7 +2486,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7f563ab15b376e240a9855c986e288b8, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a33e3132bf2b4274f818c3b0ccb8be41, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

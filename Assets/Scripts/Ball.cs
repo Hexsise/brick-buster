@@ -109,7 +109,7 @@ public class Ball : MonoBehaviour
             {
                 int activeBallCount = ballsManager.GetActiveBallCount();
                 // Calculate the volume adjustment based on the number of active ball prefabs (current workaround to volume bug)
-                float volumeAdjustment = Mathf.Max(0.5f, 1f / (activeBallCount == 0 ? 1 : activeBallCount));
+                float volumeAdjustment = Mathf.Max(0.5f, 0.85f / (activeBallCount == 0 ? 1 : activeBallCount));
 
                 if (!audioSource.enabled)
                 {
