@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public bool isLightningBall; 
+    public bool isLightningBall;
     private SpriteRenderer sr;
 
     public ParticleSystem lightningBallEffect;
@@ -17,10 +17,20 @@ public class Ball : MonoBehaviour
     public static event Action<Ball> OnLightningBallEnable;
     public static event Action<Ball> OnLightningBallDisable;
 
+    public AudioClip[] collisionSounds;
+    private AudioSource audioSource;
+
     private void Awake()
     {
         // lower-level access in Collectable
         this.sr = GetComponentInChildren<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
+        Brick.OnBrickDestruction += PlayBrickDestructionSFX;
+    }
+
+    private void PlayBrickDestructionSFX(Brick brick)
+    {
+        PlaySound(2);
     }
 
     public void Die()
@@ -30,7 +40,7 @@ public class Ball : MonoBehaviour
         Destroy(gameObject, 1);
     }
 
-    
+
     public void StartLightningBall()
     {
         if (isLightningBall)
@@ -73,7 +83,62 @@ public class Ball : MonoBehaviour
             OnLightningBallDisable?.Invoke(this);
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D coll)
+    {
+        if (coll.gameObject.CompareTag("Paddle"))
+        {
+            PlaySound(0);
+        }
+        else if (coll.gameObject.CompareTag("Wall"))
+        {
+            PlaySound(0);
+        }
+        else if (coll.gameObject.CompareTag("Ball"))
+        {
+            PlaySound(1);
+        }
+    }
+
+    private void PlaySound(int soundIndex)
+    {
+        if (audioSource != null && soundIndex >= 0 && soundIndex < collisionSounds.Length)
+        {
+            BallsManager ballsManager = BallsManager.Instance; // Get the BallsManager instance
+            if (ballsManager != null)
+            {
+                int activeBallCount = ballsManager.GetActiveBallCount();
+                // Calculate the volume adjustment based on the number of active ball prefabs (current workaround to volume bug)
+                float volumeAdjustment = Mathf.Max(0.5f, 1f / (activeBallCount == 0 ? 1 : activeBallCount));
+
+                if (!audioSource.enabled)
+                {
+                    audioSource.enabled = true; // added check to address warning on non-enabled audioSource
+                    audioSource.clip = collisionSounds[soundIndex];
+                    audioSource.Play();
+                    audioSource.enabled = false;
+                }
+                else
+                {
+                    audioSource.volume = volumeAdjustment; // Adjust the volume
+                    audioSource.clip = collisionSounds[soundIndex];
+                    audioSource.Play();
+                }
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+        Brick.OnBrickDestruction -= PlayBrickDestructionSFX;
+    }
+
+    private void OnDisable()
+    {
+        Brick.OnBrickDestruction -= PlayBrickDestructionSFX;
+    }
 }
+
 
 
 

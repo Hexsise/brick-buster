@@ -87,6 +87,7 @@ public class Brick : MonoBehaviour
         float debuffSpawnChance = UnityEngine.Random.Range(0, 100f);
         bool alreadySpawned = false;
 
+        
         if (buffSpawnChance <= CollectablesManager.Instance.BuffChance)
         {
             alreadySpawned = true;

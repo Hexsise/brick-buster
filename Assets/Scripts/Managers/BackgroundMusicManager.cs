@@ -9,7 +9,6 @@ public class BackgroundMusicManager : MonoBehaviour
     public AudioClip[] backgroundMusic;
     private AudioSource audioSource;
     private int currentMusic = 0;
-    private int lastMusicChangeLevel = 0;
 
     void Awake()
     {
@@ -31,10 +30,15 @@ public class BackgroundMusicManager : MonoBehaviour
 
     private void PlayBackgroundMusic(int currentMusic)
     {
-        if (currentMusic < backgroundMusic.Length)
+        if (audioSource != null && currentMusic < backgroundMusic.Length)
         {
             audioSource.clip = backgroundMusic[currentMusic];
             audioSource.Play();
         }
     }
+    private void OnDisable()
+    {
+        BricksManager.OnLevelsCompleted -= ChangeBackgroundMusic;
+    }
+
 }

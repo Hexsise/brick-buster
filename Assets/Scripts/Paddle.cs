@@ -39,7 +39,7 @@ public class Paddle : MonoBehaviour
     public float paddleHeight = 0.28f;
 
     private void Start()
-    {    
+    {
         mainCamera = FindObjectOfType<Camera>();
         paddleInitialY = this.transform.position.y;
         sr = GetComponent<SpriteRenderer>();

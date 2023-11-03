@@ -74,3 +74,9 @@ crashlytics-build.properties
 # Manual stuff to exclude
 unityBuild1/
 .vsconfig
+Assets/UI Sfx/
+Assets/True 8-bit Sound Effect Collection - Lite.meta
+Assets/True 8-bit Sound Effect Collection - Lite/
+Assets/UI Sfx.meta
+Assets/8Bit Sfx One Shot.meta
+Assets/8Bit Sfx One Shot/

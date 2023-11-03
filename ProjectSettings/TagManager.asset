@@ -9,6 +9,7 @@ TagManager:
   - DeathWall
   - Brick
   - Collectable
+  - Wall
   layers:
   - Default
   - TransparentFX

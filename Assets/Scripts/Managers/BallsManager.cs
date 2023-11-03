@@ -85,6 +85,11 @@ public class BallsManager : MonoBehaviour
         }
     }
 
+    public int GetActiveBallCount()
+    {
+        return Balls.Count;
+    }
+
     public void ResetBalls()
     {
         foreach (var ball in this.Balls.ToList())
