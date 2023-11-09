@@ -30,8 +30,10 @@ public class BackgroundMusicManager : MonoBehaviour
 
     private void PlayBackgroundMusic(int currentMusic)
     {
+        float volumeAdjustment = 0.65f; // change this to a global music volume variable later!!
         if (audioSource != null && currentMusic < backgroundMusic.Length)
         {
+            audioSource.volume = volumeAdjustment;
             audioSource.clip = backgroundMusic[currentMusic];
             audioSource.Play();
         }

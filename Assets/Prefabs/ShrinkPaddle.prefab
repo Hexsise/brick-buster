@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3975791088408318922}
   m_Layer: 0
   m_Name: ShrinkPaddle
-  m_TagString: Collectable
+  m_TagString: CollectableDebuff
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

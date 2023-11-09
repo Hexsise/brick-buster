@@ -93,6 +93,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6da454be835f79e458749733d5b49b49, type: 3}
   - {fileID: 8300000, guid: b1a92434b2f4f5042a58dfdfc6dff54a, type: 3}
   - {fileID: 8300000, guid: 5b1f83bbc554f4367aed82ebf7279fac, type: 3}
+  - {fileID: 8300000, guid: d374ec2186de7234bb3fe0828ee1d823, type: 3}
   - {fileID: 0}
   - {fileID: 0}
 --- !u!82 &7922977990587985986

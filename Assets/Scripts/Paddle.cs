@@ -38,14 +38,19 @@ public class Paddle : MonoBehaviour
     public float paddleWidth = 2;
     public float paddleHeight = 0.28f;
 
+    public AudioClip[] collisionSounds;
+    private AudioSource audioSource;
+
     private void Start()
     {
         mainCamera = FindObjectOfType<Camera>();
         paddleInitialY = this.transform.position.y;
         sr = GetComponent<SpriteRenderer>();
         boxCol = GetComponent<BoxCollider2D>();
-       
+        audioSource = GetComponent<AudioSource>();
     }
+
+
 
     private void Update()
     {
@@ -104,26 +109,63 @@ public class Paddle : MonoBehaviour
         float mousePositionWorldX = mainCamera.ScreenToWorldPoint(new Vector3(mousePositionPixels, 0, 0)).x;
         this.transform.position = new Vector3(mousePositionWorldX, paddleInitialY, 0);
     }
-    private void OnCollisionEnter2D(Collision2D coll) // can add audiosource play here for ball collision sound
+    private void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.tag == "Ball")
+        switch (coll.gameObject.tag)
         {
-            Rigidbody2D ballRb = coll.gameObject.GetComponent<Rigidbody2D>();
-            Vector3 hitPoint = coll.contacts[0].point;
-            Vector3 paddleCenter = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
+            case "Ball":
+                Rigidbody2D ballRb = coll.gameObject.GetComponent<Rigidbody2D>();
+                Vector3 hitPoint = coll.contacts[0].point;
+                Vector3 paddleCenter = new Vector3(this.gameObject.transform.position.x, this.gameObject.transform.position.y);
 
-            ballRb.velocity = Vector2.zero;
+                ballRb.velocity = Vector2.zero;
 
-            float difference = paddleCenter.x - hitPoint.x;
+                float difference = paddleCenter.x - hitPoint.x;
 
-            if (hitPoint.x < paddleCenter.x)
-            {
-                ballRb.AddForce(new Vector2(-(Math.Abs(difference * 200)), BallsManager.Instance.initialBallSpeed));
-            }
-            else
-            {
-                ballRb.AddForce(new Vector2((Math.Abs(difference * 200)), BallsManager.Instance.initialBallSpeed));
-            }
+                if (hitPoint.x < paddleCenter.x)
+                {
+                    ballRb.AddForce(new Vector2(-(Math.Abs(difference * 200)), BallsManager.Instance.initialBallSpeed));
+                }
+                else
+                {
+                    ballRb.AddForce(new Vector2((Math.Abs(difference * 200)), BallsManager.Instance.initialBallSpeed));
+                }
+                break;
+            default:
+                // Handle other cases if needed
+                break;
+        }
+    }
+
+    
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        switch (coll.gameObject.tag)
+        {
+            case "Buff_Collectable":
+                PlaySound(1);
+                break;
+            case "Debuff_Collectable":
+                PlaySound(3);
+                break;
+            default:
+                // Handle other cases if needed
+                break;
+        }
+    }
+
+    private void PlaySound(int soundIndex)
+    {
+        if (audioSource != null && soundIndex >= 0 && soundIndex < collisionSounds.Length)
+        {
+
+            float volumeAdjustment = 0.7f;
+
+            audioSource.volume = volumeAdjustment; // Adjust the volume
+            audioSource.enabled = true; // added check to address warning on non-enabled audioSource
+            audioSource.clip = collisionSounds[soundIndex];
+            audioSource.Play();
+
         }
     }
 

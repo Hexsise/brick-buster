@@ -86,17 +86,31 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.gameObject.CompareTag("Paddle"))
+        switch (coll.gameObject.tag)
         {
-            PlaySound(0);
+            case "Paddle":
+            case "Wall":
+                PlaySound(0);
+                break;
+            case "Ball":
+                PlaySound(1);
+                break;
+            default:
+                // Handle other cases if needed
+                break;
         }
-        else if (coll.gameObject.CompareTag("Wall"))
+    }
+
+    private void OnTriggerEnter2D(Collider2D coll)
+    {
+        switch (coll.gameObject.tag)
         {
-            PlaySound(0);
-        }
-        else if (coll.gameObject.CompareTag("Ball"))
-        {
-            PlaySound(1);
+            case "DeathWall": // need to make sure this works withh triggerable
+                PlaySound(3);
+                break;
+            default:
+                // Handle other cases if needed
+                break;
         }
     }
 
@@ -104,26 +118,21 @@ public class Ball : MonoBehaviour
     {
         if (audioSource != null && soundIndex >= 0 && soundIndex < collisionSounds.Length)
         {
-            BallsManager ballsManager = BallsManager.Instance; // Get the BallsManager instance
-            if (ballsManager != null)
-            {
-                int activeBallCount = ballsManager.GetActiveBallCount();
-                // Calculate the volume adjustment based on the number of active ball prefabs (current workaround to volume bug)
-                float volumeAdjustment = Mathf.Max(0.5f, 0.85f / (activeBallCount == 0 ? 1 : activeBallCount));
 
-                if (!audioSource.enabled)
-                {
-                    audioSource.enabled = true; // added check to address warning on non-enabled audioSource
-                    audioSource.clip = collisionSounds[soundIndex];
-                    audioSource.Play();
-                    audioSource.enabled = false;
-                }
-                else
-                {
-                    audioSource.volume = volumeAdjustment; // Adjust the volume
-                    audioSource.clip = collisionSounds[soundIndex];
-                    audioSource.Play();
-                }
+            float volumeAdjustment = 0.7f; // change this to a global sfx volume variable later!!
+
+            if (!audioSource.enabled)
+            {
+                audioSource.enabled = true; // added check to address warning on non-enabled audioSource
+                audioSource.clip = collisionSounds[soundIndex];
+                audioSource.Play();
+                audioSource.enabled = false;
+            }
+            else
+            {
+                audioSource.volume = volumeAdjustment; // Adjust the volume
+                audioSource.clip = collisionSounds[soundIndex];
+                audioSource.Play();
             }
         }
     }

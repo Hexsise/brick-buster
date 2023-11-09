@@ -8,8 +8,10 @@ TagManager:
   - Paddle
   - DeathWall
   - Brick
-  - Collectable
   - Wall
+  - Collectable
+  - Buff_Collectable
+  - Debuff_Collectable
   layers:
   - Default
   - TransparentFX

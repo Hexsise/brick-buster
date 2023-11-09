@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4470025469189519814}
   m_Layer: 0
   m_Name: ExtendPaddle
-  m_TagString: Collectable
+  m_TagString: CollectableBuff
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
