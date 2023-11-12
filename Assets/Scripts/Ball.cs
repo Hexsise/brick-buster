@@ -30,7 +30,7 @@ public class Ball : MonoBehaviour
 
     private void PlayBrickDestructionSFX(Brick brick)
     {
-        PlaySound(2);
+        PlaySound(collisionSounds[2], 0.7f);
     }
 
     public void Die()
@@ -90,7 +90,7 @@ public class Ball : MonoBehaviour
         {
             case "Paddle":
             case "Wall":
-                PlaySound(0);
+                PlaySound(collisionSounds[0], 0.7f);
                 break;
             default:
                 // Handle other cases if needed
@@ -102,8 +102,8 @@ public class Ball : MonoBehaviour
     {
         switch (coll.gameObject.tag)
         {
-            case "DeathWall": // need to make sure this works withh triggerable
-                PlaySound(3);
+            case "DeathWall":
+                PlaySound(collisionSounds[3], 0.7f);
                 break;
             default:
                 // Handle other cases if needed
@@ -111,27 +111,10 @@ public class Ball : MonoBehaviour
         }
     }
 
-    private void PlaySound(int soundIndex)
+    private void PlaySound(AudioClip clip, float volume)
     {
-        if (audioSource != null && soundIndex >= 0 && soundIndex < collisionSounds.Length)
-        {
-
-            float volumeAdjustment = 0.7f; // change this to a global sfx volume variable later!!
-
-            if (!audioSource.enabled)
-            {
-                audioSource.enabled = true; // added check to address warning on non-enabled audioSource
-                audioSource.clip = collisionSounds[soundIndex];
-                audioSource.Play();
-                audioSource.enabled = false;
-            }
-            else
-            {
-                audioSource.volume = volumeAdjustment; // Adjust the volume
-                audioSource.clip = collisionSounds[soundIndex];
-                audioSource.Play();
-            }
-        }
+        // passing down task for playing sounds for prefabs to audio manager
+        AudioManager.Instance.PlaySound(clip, volume);
     }
 
     private void OnDestroy()

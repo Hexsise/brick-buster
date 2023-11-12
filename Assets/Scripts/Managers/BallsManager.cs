@@ -64,7 +64,6 @@ public class BallsManager : MonoBehaviour
 
     public void SpawnBalls(Vector3 position, int count, bool isLightningBall, Ball ball)
     {
-        // type "for" and hit tab twice to implement snippet code
         for (int i = 0; i < count; i++)
         {
             Ball spawnedBall = Instantiate(ballPrefab, position, Quaternion.identity) as Ball;

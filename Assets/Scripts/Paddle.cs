@@ -143,10 +143,10 @@ public class Paddle : MonoBehaviour
         switch (coll.gameObject.tag)
         {
             case "Buff_Collectable":
-                PlaySound(1);
+                PlaySound(collisionSounds[0], 0.7f);
                 break;
             case "Debuff_Collectable":
-                PlaySound(3);
+                PlaySound(collisionSounds[1], 0.7f);
                 break;
             default:
                 // Handle other cases if needed
@@ -154,19 +154,10 @@ public class Paddle : MonoBehaviour
         }
     }
 
-    private void PlaySound(int soundIndex)
+    private void PlaySound(AudioClip clip, float volume)
     {
-        if (audioSource != null && soundIndex >= 0 && soundIndex < collisionSounds.Length)
-        {
-
-            float volumeAdjustment = 0.7f;
-
-            audioSource.volume = volumeAdjustment; // Adjust the volume
-            audioSource.enabled = true; // added check to address warning on non-enabled audioSource
-            audioSource.clip = collisionSounds[soundIndex];
-            audioSource.Play();
-
-        }
+        // passing down task for playing sound for prefabs to audio manager
+        AudioManager.Instance.PlaySound(clip, volume);
     }
 
 }

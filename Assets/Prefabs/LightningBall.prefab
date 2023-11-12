@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 1837893880312751285}
   m_Layer: 0
   m_Name: LightningBall
-  m_TagString: CollectableBuff
+  m_TagString: Buff_Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
