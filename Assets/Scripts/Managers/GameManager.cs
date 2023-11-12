@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     {
         this.Lives = this.AvailableLives;
         Screen.SetResolution(540, 960, false);
+        Cursor.visible = false;
         Ball.OnBallDeath += OnBallDeath;
         Brick.OnBrickDestruction += OnBrickDestruction;  
     }

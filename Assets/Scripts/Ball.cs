@@ -92,9 +92,6 @@ public class Ball : MonoBehaviour
             case "Wall":
                 PlaySound(0);
                 break;
-            case "Ball":
-                PlaySound(1);
-                break;
             default:
                 // Handle other cases if needed
                 break;

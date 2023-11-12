@@ -15,7 +15,7 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.Escape))
+        if(Input.GetKeyUp(KeyCode.Escape) || Input.GetKeyUp(KeyCode.P))
         {
             if(isPaused)
             {
@@ -34,6 +34,7 @@ public class PauseManager : MonoBehaviour
         ResumeButton.SetActive(true);
         QuitButton.SetActive(true);
         Paddle.SetActive(false);
+        Cursor.visible = true;
         isPaused = true;
     }
 
@@ -43,6 +44,7 @@ public class PauseManager : MonoBehaviour
         ResumeButton.SetActive(false);
         QuitButton.SetActive(false);
         Paddle.SetActive(true);
+        Cursor.visible = false;
         isPaused = false;
     }
 
